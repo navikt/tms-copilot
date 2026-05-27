@@ -47,7 +47,7 @@ on:
 
 jobs:
   sync:
-    uses: navikt/tms-agent-skills/.github/workflows/tms-copilot-sync.yml@main
+    uses: navikt/tms-copilot/.github/workflows/tms-copilot-sync.yml@main
     permissions:
       contents: write
       pull-requests: write
