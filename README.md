@@ -32,3 +32,25 @@ skills/
 - `scripts/` for kjørbar logikk
 - `references/` for dokumentasjon og støtteinnhold
 - `assets/` for maler og andre ressurser
+
+## Sync av skills til andre repoer
+
+Repoet inneholder en reusable workflow for å kopiere `.github/skills/**` til teamrepoer:
+
+```yaml
+name: Skills Sync
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    uses: navikt/tms-agent-skills/.github/workflows/tms-copilot-sync.yml@main
+    permissions:
+      contents: write
+      pull-requests: write
+```
+
+Workflowen lager PR bare når skills har endret seg, kopierer kun skill-mappene, og beholder eventuelle ekstra lokale skills i målrepoet.
