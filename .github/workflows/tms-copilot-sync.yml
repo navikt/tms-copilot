@@ -1,0 +1,82 @@
+name: Tms Copilot Sync
+
+on:
+  workflow_call:
+    inputs:
+      source_repo:
+        description: 'Repository to sync skills from (owner/repo)'
+        type: string
+        required: false
+        default: 'navikt/tms-copilot'
+      source_ref:
+        description: 'Branch or tag to sync from'
+        type: string
+        required: false
+        default: 'main'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: tms-copilot-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Tms Copilot Sync
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+
+      - name: Clone source repo
+        env:
+          SOURCE_REPO: ${{ inputs.source_repo }}
+          SOURCE_REF: ${{ inputs.source_ref }}
+        run: |
+          git clone --depth 1 --branch "$SOURCE_REF" "https://github.com/$SOURCE_REPO.git" /tmp/source
+          echo "SOURCE_SHA=$(git -C /tmp/source rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Sync skills directory
+        run: |
+          mkdir -p .github/skills
+          rsync -a /tmp/source/.github/skills/ .github/skills/
+
+      - name: Collect changed files
+        id: changes
+        run: |
+          if git diff --quiet -- .github/skills; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          {
+            echo "files<<EOF"
+            git diff --name-only -- .github/skills
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create pull request
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ github.token }}
+          branch: skills-sync
+          delete-branch: true
+          commit-message: 'chore: sync tms-copilot'
+          title: 'chore: sync tms-copilot'
+          body: |
+            Syncs `.github/skills/**` from [${{ inputs.source_repo }}](https://github.com/${{ inputs.source_repo }}).
+
+            **Source:** `${{ inputs.source_repo }}@${{ env.SOURCE_SHA }}`
+
+            **Changed files:**
+            ${{ steps.changes.outputs.files }}
+
+            ---
+            🤖 Created automatically by the Tms Copilot Sync workflow.
+          labels: dependencies
