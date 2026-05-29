@@ -1,0 +1,29 @@
+name: Task
+description: Avgrenset teknisk aktivitet
+title: "task: "
+labels: ["task"]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Oppgave
+      description: Hva skal gjøres konkret?
+      placeholder: Beskriv implementasjon/aktivitet tydelig.
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Definisjon av ferdig
+      description: Hvordan vet vi at tasken er fullført?
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notater
+      description: Lenker, referanser, avhengigheter
+      placeholder: Legg ved relevant kontekst.

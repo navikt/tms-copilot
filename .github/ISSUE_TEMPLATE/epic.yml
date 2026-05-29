@@ -1,0 +1,41 @@
+name: Epic
+description: Stor leveranse som deles i flere issues
+title: "epic: "
+labels: ["epic"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Mål
+      description: Hva skal epiken oppnå?
+      placeholder: Beskriv ønsket forretnings- eller teameffekt.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Hva er inkludert og ekskludert?
+      placeholder: Inkluder avgrensning.
+    validations:
+      required: true
+  - type: textarea
+    id: milestones
+    attributes:
+      label: Foreslåtte under-issues
+      description: Hvilke stories/features/tasks inngår?
+      placeholder: |
+        - [ ] #123 Story ...
+        - [ ] #124 Task ...
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Definisjon av ferdig
+      description: Når kan epiken lukkes?
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true

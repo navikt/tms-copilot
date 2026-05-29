@@ -1,0 +1,39 @@
+name: Config
+description: Endring i konfigurasjon, miljø, policy eller CI/CD
+title: "config: "
+labels: ["config"]
+body:
+  - type: textarea
+    id: change
+    attributes:
+      label: Endring
+      description: Hvilken konfigurasjon må endres?
+      placeholder: Beskriv konkret ønsket konfig-endring.
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Begrunnelse
+      description: Hvorfor trengs endringen nå?
+      placeholder: Problem, risiko eller gevinst.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Påvirkning og risiko
+      description: Hvem/hva påvirkes? Eventuell rollback-plan?
+      placeholder: Beskriv risiko, avhengigheter og fallback.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Akseptkriterier
+      description: Verifiserbar definisjon av ferdig
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true

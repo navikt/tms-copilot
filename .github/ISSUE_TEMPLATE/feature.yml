@@ -1,0 +1,37 @@
+name: Feature
+description: Ny funksjonalitet i systemet
+title: "feature: "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Mål
+      description: Hvilket problem løser feature?
+      placeholder: Beskriv behov og ønsket resultat.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Hva skal bygges, og hva er utenfor scope?
+      placeholder: Inkluder tydelig avgrensning.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Akseptkriterier
+      description: Testbare kriterier for ferdig leveranse
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Avhengigheter
+      description: Relevante avhengigheter eller blokkerende arbeid
+      placeholder: Lenk issues eller systemavhengigheter.

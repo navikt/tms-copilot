@@ -1,0 +1,40 @@
+name: Bug
+description: Rapporter en feil i eksisterende funksjonalitet
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Hva er feil, og hvordan påvirker det brukeren/systemet?
+      placeholder: Beskriv forventet vs faktisk oppførsel.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reprodusering
+      description: Steg for å gjenskape feilen
+      placeholder: |
+        1. Gå til ...
+        2. Klikk ...
+        3. Observer ...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Akseptkriterier
+      description: Hvordan vet vi at feilen er løst?
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Kontekst
+      description: Miljø, logger, skjermbilder, avhengigheter
+      placeholder: Legg ved relevant kontekst.

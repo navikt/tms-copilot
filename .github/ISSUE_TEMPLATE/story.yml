@@ -1,0 +1,31 @@
+name: Story
+description: Brukerhistorie med verdi og akseptkriterier
+title: "story: "
+labels: ["story"]
+body:
+  - type: textarea
+    id: user_story
+    attributes:
+      label: Brukerhistorie
+      description: Formuler som "Som ..., ønsker jeg ..., slik at ..."
+      placeholder: Som ..., ønsker jeg ..., slik at ...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Akseptkriterier
+      description: Konkret og testbar definisjon av ferdig
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: Antakelser og avklaringer
+      description: Viktige avklaringer som må ligge fast
+      placeholder: Beskriv beslutninger og eventuelle åpne spørsmål.
+    validations:
+      required: true
