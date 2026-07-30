@@ -1,6 +1,6 @@
 ---
-name: readme-update
-description: "README og repo-dokumentasjon — faktisk stack, lokal kjøring, tester, deploy, NAIS-manifest, integrasjoner og eierskap. Brukes via /readme-update når dokumentasjon skal lages eller oppdateres."
+name: readme
+description: "README og repo-dokumentasjon — faktisk stack, lokal kjøring, tester, deploy, NAIS-manifest, integrasjoner og eierskap. Brukes via /readme når dokumentasjon skal lages eller oppdateres."
 ---
 
 # README-oppdatering for Nav-repoer
