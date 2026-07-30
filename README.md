@@ -64,10 +64,37 @@ jobs:
       pull-requests: write
 ```
 
-> **Viktig:** Bruk samme kilderepo for både `install` og `sync`. Hvis du installerte fra
-> `navikt/copilot` men syncer med `--source navikt/tms-copilot`, vil state-fila referere
-> til filer som ikke finnes her, og sync feiler (se
-> [navikt/copilot#260](https://github.com/navikt/copilot/issues/260)).
+#### nav-pilot CLI-kommandoer
+
+Lokalt kan du bruke nav-pilot direkte mot dette repoet. Bruk **samme kilde
+(`--source navikt/tms-copilot`) for både install og sync** — ellers feiler sync (se
+[navikt/copilot#260](https://github.com/navikt/copilot/issues/260)).
+
+```bash
+# Installer en enkelt skill fra dette repoet
+nav-pilot install issues --source navikt/tms-copilot
+
+# Installer alle manglende customizations fra kilden
+nav-pilot install --all --source navikt/tms-copilot
+
+# Sjekk om noe har endret seg i kilden (åpner ingenting, viser bare status)
+nav-pilot sync --source navikt/tms-copilot
+
+# Bruk oppdateringene direkte i arbeidskopien
+nav-pilot sync --source navikt/tms-copilot --apply
+
+# Maskinlesbar status (nyttig i CI/skript)
+nav-pilot sync --source navikt/tms-copilot --json
+
+# Personlig (user-scope) installasjon i ~/.copilot/
+nav-pilot install --user --all --source navikt/tms-copilot
+
+# Se hva som er installert og om det er oppdatert
+nav-pilot list --installed
+```
+
+> `nav-pilot sync` (uten `--source`) synker mot standardkilden `navikt/copilot`. Angi
+> alltid `--source navikt/tms-copilot` når du jobber med dette repoets customizations.
 
 Sync er kilde-avgrenset: kun filnavn som faktisk finnes i `navikt/tms-copilot`
 sammenlignes. nav-pilot sine øvrige ~30 skills blir **ikke** dratt inn. Eneste
