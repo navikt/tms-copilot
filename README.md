@@ -18,10 +18,11 @@ Repoet er et dokumentasjons- og innholdsrepo for Copilot-tilpasninger. Målgrupp
 
 Alle skills ligger under `.github/skills/`, med egen `SKILL.md` per skill.
 
-- `caveman`: ultra-komprimert kommunikasjonsmodus
+- `conventional-commit`: commit-meldinger etter Conventional Commits, tilpasset Nav-scopes
 - `grill-me`: strukturert intervju for å stressteste planer
-- `issue-planner`: avklaring og opprettelse av issues fra templates
-- `readme-update`: oppdatering av README/repo-dokumentasjon
+- `issues`: håndtering av GitHub Issues — maler, epics, sub-issues, dependencies og prosjektboard
+- `pull-request`: oppretting og oppdatering av pull requests med semantisk tittel og issue-kobling
+- `readme`: oppdatering av README/repo-dokumentasjon
 - `write-a-skill`: opprette nye skills med riktig struktur
 
 ## Instructions i repoet
@@ -33,7 +34,56 @@ Repoet inneholder også delte instruction-filer under `.github/instructions/` so
 
 ## Sync av customizations
 
-Repoet inneholder en reusable workflow for å kopiere `.github/skills/**` og `.github/instructions/**` til teamrepoer:
+Det finnes to måter å hente skills og instructions fra dette repoet inn i et teamrepo.
+
+### Alternativ A: nav-pilot (anbefalt)
+
+Nav sitt org-verktøy [nav-pilot](https://github.com/navikt/copilot) kan synce direkte fra
+dette repoet via den gjenbrukbare workflowen `copilot-customization-sync.yml`. Den
+auto-detekterer alle `.github/skills/*/` og `.github/instructions/*.instructions.md`
+som finnes i kilderepoet, og oppretter PR i målrepoet når noe har endret seg.
+
+Legg til `.github/workflows/copilot-sync.yml` i teamrepoet (ferdig eksempel ligger i
+[`examples/copilot-sync.yml`](examples/copilot-sync.yml)):
+
+```yaml
+name: Copilot Customization Sync
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    uses: navikt/copilot/.github/workflows/copilot-customization-sync.yml@main
+    with:
+      source_repo: navikt/tms-copilot
+    permissions:
+      contents: write
+      pull-requests: write
+```
+
+> **Viktig:** Bruk samme kilderepo for både `install` og `sync`. Hvis du installerte fra
+> `navikt/copilot` men syncer med `--source navikt/tms-copilot`, vil state-fila referere
+> til filer som ikke finnes her, og sync feiler (se
+> [navikt/copilot#260](https://github.com/navikt/copilot/issues/260)).
+
+Sync er kilde-avgrenset: kun filnavn som faktisk finnes i `navikt/tms-copilot`
+sammenlignes. nav-pilot sine øvrige ~30 skills blir **ikke** dratt inn. Eneste
+navnekollisjon i dag er `conventional-commit`, som finnes i begge kilder — hvis et repo
+syncer fra begge, beskytt din versjon med `.github/copilot-sync.json`:
+
+```json
+{
+  "overrides": [".github/skills/conventional-commit/"]
+}
+```
+
+### Alternativ B: repoets egen workflow
+
+Repoet inneholder også en selvstendig reusable workflow som kopierer `.github/skills/**`
+og `.github/instructions/**` til teamrepoer:
 
 ```yaml
 name: Customizations Sync
@@ -47,7 +97,7 @@ jobs:
   sync:
     uses: navikt/tms-copilot/.github/workflows/tms-copilot-sync.yml@main
     with:
-      customizations: "readme-update, astro-aksel.instructions"
+      customizations: "readme, astro-aksel.instructions"
     permissions:
       contents: write
       pull-requests: write

@@ -1,0 +1,24 @@
+# Kopier denne fila til `.github/workflows/copilot-sync.yml` i teamrepoet ditt for å
+# holde Copilot-customizations i synk med navikt/tms-copilot via nav-pilot.
+#
+# Workflowen bruker nav sin gjenbrukbare org-workflow, som auto-detekterer alle
+# .github/skills/*/ og .github/instructions/*.instructions.md i kilderepoet og
+# oppretter en PR i dette repoet når noe har endret seg.
+#
+# Se README i navikt/tms-copilot for detaljer og navnekollisjon-håndtering.
+
+name: Copilot Customization Sync
+
+on:
+  schedule:
+    - cron: '0 7 * * 1' # Hver mandag 07:00 UTC
+  workflow_dispatch:
+
+jobs:
+  sync:
+    uses: navikt/copilot/.github/workflows/copilot-customization-sync.yml@main
+    with:
+      source_repo: navikt/tms-copilot
+    permissions:
+      contents: write
+      pull-requests: write
