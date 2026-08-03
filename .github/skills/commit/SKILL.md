@@ -1,6 +1,6 @@
 ---
-name: conventional-commit
-description: "Commit-meldinger etter conventional commits-standarden — scopes, breaking change-format og kort norsk oppsummering. Brukes via /conventional-commit ved commit eller commit-melding."
+name: commit
+description: "Commit-meldinger etter conventional commits-standarden — scopes, breaking change-format og kort norsk oppsummering. Brukes via /commit ved commit eller commit-melding."
 ---
 
 # Conventional commit
