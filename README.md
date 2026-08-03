@@ -18,7 +18,7 @@ Repoet er et dokumentasjons- og innholdsrepo for Copilot-tilpasninger. Målgrupp
 
 Alle skills ligger under `.github/skills/`, med egen `SKILL.md` per skill.
 
-- `conventional-commit`: commit-meldinger etter Conventional Commits, tilpasset Nav-scopes
+- `commit`: commit-meldinger etter Conventional Commits, tilpasset Nav-scopes
 - `grill-me`: strukturert intervju for å stressteste planer
 - `issues`: håndtering av GitHub Issues — maler, epics, sub-issues, dependencies og prosjektboard
 - `pull-request`: oppretting og oppdatering av pull requests med semantisk tittel og issue-kobling
@@ -98,12 +98,12 @@ nav-pilot list --installed
 
 Sync er kilde-avgrenset: kun filnavn som faktisk finnes i `navikt/tms-copilot`
 sammenlignes. nav-pilot sine øvrige ~30 skills blir **ikke** dratt inn. Eneste
-navnekollisjon i dag er `conventional-commit`, som finnes i begge kilder — hvis et repo
+navnekollisjon i dag er `commit`, som finnes i begge kilder — hvis et repo
 syncer fra begge, beskytt din versjon med `.github/copilot-sync.json`:
 
 ```json
 {
-  "overrides": [".github/skills/conventional-commit/"]
+  "overrides": [".github/skills/commit/"]
 }
 ```
 
