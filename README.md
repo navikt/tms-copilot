@@ -18,6 +18,7 @@ Repoet er et dokumentasjons- og innholdsrepo for Copilot-tilpasninger. Målgrupp
 
 Alle skills ligger under `.github/skills/`, med egen `SKILL.md` per skill.
 
+- `code-review`: gjennomgang av endringer siden et fast punkt mot dokumenterte standarder og en code-smell-baseline
 - `commit`: commit-meldinger etter Conventional Commits, tilpasset Nav-scopes
 - `grill-me`: strukturert intervju for å stressteste planer
 - `implement`: implementere en arbeidsoppgave basert på en spec eller et sett med tickets
