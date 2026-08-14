@@ -78,4 +78,4 @@ Walk the diff per file/hunk and report:
 Distinguish hard violations from judgement calls throughout. End with a one-line summary:
 total findings, and the single worst issue.
 
-Refactoring belongs here, not in the red → green loop — see the `tdd` skill.
+Refactoring belongs here, not in the red → green loop — see the `test-driven-development` skill.

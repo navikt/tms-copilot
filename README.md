@@ -25,7 +25,7 @@ Alle skills ligger under `.github/skills/`, med egen `SKILL.md` per skill.
 - `issues`: håndtering av GitHub Issues — maler, epics, sub-issues, dependencies og prosjektboard
 - `pull-request`: oppretting og oppdatering av pull requests med semantisk tittel og issue-kobling
 - `readme`: oppdatering av README/repo-dokumentasjon
-- `tdd`: test-drevet utvikling med red-green-refactor og seam-basert testing
+- `test-driven-development`: test-drevet utvikling med red-green-refactor og seam-basert testing
 - `write-a-skill`: opprette nye skills med riktig struktur
 
 ## Instructions i repoet
