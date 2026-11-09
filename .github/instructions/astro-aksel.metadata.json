@@ -1,6 +1,6 @@
 {
   "title": "Astro/Aksel Development",
-  "description": "When writing Astro applications with Aksel Design System: Astro pages, islands, endpoints, middleware, spacing tokens, responsive layouts, and Nav patterns.",
+  "description": "Points agents to the astro skill when they write Astro, React, TypeScript or CSS in a min-side Astro app, with the most-broken Astro 7 and Aksel rules inline.",
   "tags": [
     "astro",
     "aksel",

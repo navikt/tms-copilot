@@ -18,6 +18,7 @@ Repoet er et dokumentasjons- og innholdsrepo for Copilot-tilpasninger. Målgrupp
 
 Alle skills ligger under `.github/skills/`, med egen `SKILL.md` per skill.
 
+- `astro`: skrive og gjennomgå kode i teamets Astro-apper etter Astro 7- og Aksel-dokumentasjonen og teamets konvensjoner
 - `code-review`: gjennomgang av endringer siden et fast punkt mot dokumenterte standarder og en code-smell-baseline
 - `commit`: commit-meldinger etter Conventional Commits, tilpasset Nav-scopes
 - `grill-me`: strukturert intervju for å stressteste planer
@@ -32,7 +33,7 @@ Alle skills ligger under `.github/skills/`, med egen `SKILL.md` per skill.
 
 Repoet inneholder også delte instruction-filer under `.github/instructions/` som kan brukes av agenter i kompatible kodebaser.
 
-- `astro-aksel.instructions.md`: retningslinjer for Astro/Aksel-filer
+- `astro-aksel.instructions.md`: peker til `astro`-skillen, med de viktigste Astro 7-reglene hvis skillen ikke lastes
 - `astro-aksel.metadata.json`: metadata for instruction-regelen
 
 ## Sync av customizations
