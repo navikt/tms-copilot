@@ -33,6 +33,7 @@ This skill is synced into team repos, so discover what *this* repo documents rat
 assuming. Look for, and read what exists:
 
 - `.github/instructions/*.instructions.md`
+- `.github/skills/*/SKILL.md` that cover the changed files (e.g. `astro` for `.astro`, `.tsx`, `.ts` and `.css` in an Astro app), with the references they link to
 - `AGENTS.md`, `CONTEXT.md`
 - `CONTRIBUTING.md`, `CODING_STANDARDS.md`
 - ADRs in the area you're touching
