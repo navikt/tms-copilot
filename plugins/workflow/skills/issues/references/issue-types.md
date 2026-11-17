@@ -1,18 +1,18 @@
 # Native GitHub issue types
 
-## MCP (primær)
+## MCP (primary)
 
-Bruk MCP `issue_write` med `type`-parameter for oppretting/oppdatering av issue type.
+Use MCP `issue_write` with the `type` parameter to create or update an issue type.
 
-Bruk MCP `list_issue_types` for å oppdage tilgjengelige typer før du setter verdi.
+Use MCP `list_issue_types` to discover the available types before you set a value.
 
-- Vanlige org-typer: `Bug`, `Epic`, `Feature`, `Story`, `Task`
+- Common org types: `Bug`, `Epic`, `Feature`, `Story`, `Task`
 
 ## Fallback (gh api)
 
-Når MCP ikke er tilgjengelig, bruk REST med `type`-felt.
+When MCP is not available, use REST with the `type` field.
 
-### Opprett issue med type
+### Create an issue with a type
 
 ```bash
 gh api repos/{owner}/{repo}/issues \
@@ -23,7 +23,7 @@ gh api repos/{owner}/{repo}/issues \
   --jq '.number'
 ```
 
-### List tilgjengelige issue types (org-nivå)
+### List available issue types (org level)
 
 ```bash
 gh api graphql \

@@ -1,60 +1,63 @@
 ---
 name: pull-request
-description: "PR-oppretting og -oppdatering — semantisk tittel, kort beskrivelse, issue-kobling, teststatus, risiko, sjekkliste og reviewer-kontekst. Brukes via /pull-request ved nye eller oppdaterte PR-er."
+description: "Creates and updates pull requests with a semantic title, a short description, issue links, test status, risk notes, a checklist and reviewer context. Use when the user asks to open, create or update a PR, or invokes /pull-request."
 ---
 
 # Pull request
 
-Opprett konsistente, godt strukturerte pull requests som kobles til issues og følger teamets arbeidsflyt.
+Create consistent, well-structured pull requests that link to issues and follow the team's workflow.
 
-## PR-tittel
+Write the PR title and text in the language the repo's recent history uses. The `Del av epic: #100` line in the table below is a Norwegian example.
 
-Bruk semantisk commit-format:
+## PR title
+
+Use the semantic commit format:
 
 ```
-type(scope): kort beskrivelse
+type(scope): short description
+type: short description
 ```
 
-- **Typer:** `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`
-- **Scope:** Modul eller domene som endres
+- **Types:** `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `build`, `ci`, `perf`
+- **Scope:** Optional. Follow the scope rule in the commit skill, and leave the scope out when that rule says to.
 
-## PR-tekst
+## PR body
 
-Repoet har en PR-template i `.github/PULL_REQUEST_TEMPLATE.md` som automatisk forhåndsfyller teksten når du oppretter en PR. Fyll inn seksjonene i malen.
+When the repo has `.github/PULL_REQUEST_TEMPLATE.md`, read it and fill in its sections. When the repo has no template, write a short body that summarizes the points in the list below.
 
-For ikke-trivielle endringer bør teksten kort oppsummere:
-- hva som ble endret
-- issue-kobling
-- hva som ble verifisert (build/typecheck/test/lint)
-- eventuelle merknader fra review/inspeksjon
+For non-trivial changes the text should briefly summarize:
+- what changed
+- the issue link
+- what was verified (build/typecheck/test/lint)
+- any notes from review/inspection
 
-## Issue-kobling
+## Issue links
 
-| Situasjon | I PR-body |
-|-----------|-----------|
-| Issue løst fullstendig | `Closes #123` |
-| Delvis arbeid, issue fortsatt åpent | `Relates to #123` |
-| Del av epic | `Closes #123` + `Del av epic: #100` |
-| Ingen issue | Skriv motivasjon direkte i beskrivelsen |
+| Situation | In the PR body |
+|-----------|----------------|
+| Issue fully resolved | `Closes #123` |
+| Partial work, issue still open | `Relates to #123` |
+| Part of an epic | `Closes #123` + `Del av epic: #100` |
+| No issue | Write the motivation directly in the description |
 
-## Opprettelse
+## Creating the PR
 
-### MCP (foretrukket)
+### MCP (preferred)
 
-Bruk tilgjengelig PR-verktøy for å opprette PR med tittel og tekst.
+Use the available PR tool to create the PR with a title and text.
 
 ### Fallback (gh CLI)
 
 ```bash
 gh pr create \
   --repo navikt/REPO_NAVN \
-  --title "type(scope): beskrivelse" \
+  --title "type(scope): description" \
   --body "BODY"
 ```
 
 ### Auto-merge (squash)
 
-Etter opprettelse:
+After creation:
 ```bash
 gh pr merge --auto --squash
 ```

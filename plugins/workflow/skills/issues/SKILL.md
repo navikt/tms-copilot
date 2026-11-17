@@ -1,39 +1,41 @@
 ---
 name: issues
-description: "GitHub Issues-håndtering — issue-maler, epics, sub-issues, dependencies, prosjektboard, status, ferdigmelding og PR-kobling. Brukes via /issues ved oppretting eller håndtering av issues."
+description: "Creates and manages GitHub issues: issue templates, epics, sub-issues, dependencies, project board, status, completion comments and PR links. Use when the user asks to create, break down, update or close an issue or epic, to pick the next issue to work on, or invokes /issues."
 ---
 
-# Issue-håndtering
+# Issue management
 
-Opprett og håndter GitHub Issues med epics, sub-issues og avhengigheter.
+Create and manage GitHub Issues with epics, sub-issues and dependencies.
 
-## Arbeidsflyt
+Write issue titles, issue text and comments in the language the repo's recent history uses. The completion comment template in step 7 and the `Avhenger av #NNN` and `Del av epic: #EPIC_NUMMER` lines are Norwegian examples of that output.
 
-### 1. Sjekk om issue allerede finnes
+## Workflow
 
-Før du oppretter et nytt issue, sjekk om brukeren allerede har referert til et issue (f.eks. `#123` eller en GitHub-URL). Hvis ja, bruk det eksisterende issuet.
+### 1. Check whether the issue already exists
 
-### 2. Velg type
+Before you create a new issue, check whether the user has already referred to one (for example `#123` or a GitHub URL). If so, use the existing issue.
 
-| Type | Bruk |
-|------|------|
-| **Epic** | Store oppgaver som brytes ned i flere issues |
-| **Feature** | Ny funksjonalitet |
-| **Story** | Brukerhistorie / brukstilfelle |
-| **Task** | Teknisk oppgave, vedlikehold, chore |
-| **Bug** | Feil som må fikses |
+### 2. Choose a type
 
-### 3. Opprett issue med riktig struktur
+| Type | Use |
+|------|-----|
+| **Epic** | Large tasks that are broken down into several issues |
+| **Feature** | New functionality |
+| **Story** | User story / use case |
+| **Task** | Technical task, maintenance, chore |
+| **Bug** | Defect that must be fixed |
 
-Repoet har issue-maler i `.github/ISSUE_TEMPLATE/` for de relevante typene (`feature`, `bug`, `story`, `task`, `epic`). Les feltstrukturen fra malen for den valgte typen og lag en markdown-tekst med tilsvarende seksjoner.
+### 3. Create the issue with the right structure
 
-Inkluder alltid:
-- **Avhengigheter** (valgfritt): `Avhenger av #NNN` hvis relevant
-- **Epic-kobling** (valgfritt): `Del av epic: #EPIC_NUMMER` hvis relevant
+The repo has issue templates in `.github/ISSUE_TEMPLATE/` for the relevant types (`feature`, `bug`, `story`, `task`, `epic`). Read the field structure from the template for the chosen type and write markdown text with matching sections.
 
-### 4. Opprett issue
+Always include:
+- **Dependencies** (optional): `Avhenger av #NNN` if relevant
+- **Epic link** (optional): `Del av epic: #EPIC_NUMMER` if relevant
 
-**MCP (foretrukket):** Bruk issue-/project-verktøy for å opprette issue med riktig type direkte.
+### 4. Create the issue
+
+**MCP (preferred):** Use the issue/project tools to create the issue with the right type directly.
 
 **Fallback (`gh api`):**
 ```bash
@@ -45,63 +47,63 @@ gh api repos/navikt/REPO_NAVN/issues \
   --jq '.html_url'
 ```
 
-Se `references/issue-types.md` for detaljer om issue-typer.
+See `references/issue-types.md` for details on issue types.
 
-### 4b. Legg issue inn i prosjektboard (hvis konfigurert)
+### 4b. Add the issue to a project board (if configured)
 
-Etter programmatisk opprettelse: les issue-malen i målrepoet og se etter `projects:`-linjen.
+After programmatic creation: read the issue template in the target repo and look for the `projects:` line.
 
-- Hvis issue-malen i repoet ikke har en `projects:`-linje, hopp over dette steget uten å feile
-- Hvis prosjekt er konfigurert, legg issuet inn i boardet og oppdag prosjekt, felter og opsjoner dynamisk
-- Ikke hardkod felt-ID-er, option-ID-er eller statusnavn per repo
+- If the repo's issue template has no `projects:` line, skip this step without failing
+- If a project is configured, add the issue to the board and discover the project, fields and options dynamically
+- Do not hardcode field IDs, option IDs or status names per repo
 
-Se `references/projects.md` for workflow og feilhåndtering.
+See `references/projects.md` for the workflow and error handling.
 
-### 5. Epic-håndtering
+### 5. Epic handling
 
-For store oppgaver som brytes ned:
+For large tasks that are broken down:
 
-1. Opprett epic-issuet først
-2. Opprett underliggende issues
-3. Koble sub-issues til epicen via GitHubs sub-issues-API
-4. Koble avhengigheter via dependencies-API-et
-5. Inkluder også `Del av epic: #EPIC_NUMMER` og `Avhenger av #NNN` i issue-teksten for lesbarhet
+1. Create the epic issue first
+2. Create the underlying issues
+3. Link the sub-issues to the epic through GitHub's sub-issues API
+4. Link dependencies through the dependencies API
+5. Also include `Del av epic: #EPIC_NUMMER` and `Avhenger av #NNN` in the issue text for readability
 
-#### Sub-issues skal være selvstendige
+#### Sub-issues must be self-contained
 
-Hvert sub-issue skal inneholde nok kontekst til at noen kan plukke det opp uten å lese hele epicen:
-- Tydelig beskrivelse av hva som skal gjøres
-- Relevante filer og API-er
-- Avhengigheter til andre issues
-- Akseptansekriterier
+Each sub-issue must contain enough context for someone to pick it up without reading the whole epic:
+- A clear description of what to do
+- Relevant files and APIs
+- Dependencies on other issues
+- Acceptance criteria
 
-### 6. Epic-workflow og progresjon
+### 6. Epic workflow and progress
 
-Når en epic skal løses stegvis:
+When an epic is to be resolved step by step:
 
-1. **Les epicen** — hent epic, sub-issues og informasjon om avhengigheter
-2. **Kategoriser åpne sub-issues**:
-    - **Kjørbar nå** — alle avhengigheter er oppfylt
-    - **Blokkert** — minst én avhengighet er fortsatt åpen
-    - **Parallelle kandidater** — flere kjørbare oppgaver uten innbyrdes avhengighet
-3. **Presenter anbefaling**:
-    - Hvis én kandidat → foreslå den
-    - Hvis flere kandidater → foreslå valgbare eller parallelle alternativer
-    - Hvis ingen kandidater → forklar hva som blokkerer videre arbeid
-4. **Løs oppgaven** — følg normal arbeidsflyt for valgt issue
-    - Når arbeid starter, oppdater prosjekt-status til `In Progress`/tilsvarende via mønsteret i `references/projects.md`
-    - Hvis repo, prosjekt eller statusfelt ikke er konfigurert, hopp over uten å feile
-5. **Gjenta** — etter fullføring, vurder neste kjørbare oppgave
+1. **Read the epic** — fetch the epic, its sub-issues and the dependency information
+2. **Categorize the open sub-issues**:
+    - **Runnable now** — all dependencies are met
+    - **Blocked** — at least one dependency is still open
+    - **Parallel candidates** — several runnable tasks with no dependencies between them
+3. **Present a recommendation**:
+    - If there is one candidate → suggest it
+    - If there are several candidates → suggest selectable or parallel alternatives
+    - If there are no candidates → explain what blocks further work
+4. **Solve the task** — follow the normal workflow for the chosen issue
+    - When work starts, update the project status to `In Progress`/equivalent using the pattern in `references/projects.md`
+    - If the repo, project or status field is not configured, skip without failing
+5. **Repeat** — after completion, consider the next runnable task
 
-### 7. Ferdigmelding på issues
+### 7. Completion comment on issues
 
-Etter at et issue er løst, legg igjen en ferdigmelding:
+After an issue is resolved, leave a completion comment:
 
 ```bash
 gh issue comment ISSUE_NUMMER --repo navikt/REPO --body "COMMENT_BODY"
 ```
 
-Ferdigmeldingen skal være strukturert og kortfattet:
+The completion comment must be structured and concise:
 
 ~~~markdown
 ## ✅ Løst
@@ -119,36 +121,36 @@ Ferdigmeldingen skal være strukturert og kortfattet:
 **PR:** #PR_NUMMER
 ~~~
 
-Bruk en kort inspeksjonsoppsummering i kommentaren — ikke en full ASCII-rapport med mindre brukeren eksplisitt ønsker det.
+Use a short inspection summary in the comment — not a full ASCII report unless the user explicitly asks for one.
 
-### 8. Lukk epic automatisk
+### 8. Close the epic automatically
 
-Etter at et sub-issue er lukket, sjekk om alle sub-issues i epicen er fullført.
+After a sub-issue is closed, check whether all sub-issues in the epic are complete.
 
-Hvis ingen åpne sub-issues gjenstår:
-1. Legg igjen en oppsummerende kommentar på epicen
-2. Lukk epicen
+If no open sub-issues remain:
+1. Leave a summarizing comment on the epic
+2. Close the epic
 
-### 9. Issue-kobling i PR-er
+### 9. Issue link in PRs
 
-Når arbeidet resulterer i en PR:
+When the work results in a PR:
 
 ```bash
 Closes #ISSUE_NUMMER
 ```
 
-Eller, hvis issuet skal holdes åpent:
+Or, if the issue should stay open:
 
 ```bash
 Relates to #ISSUE_NUMMER
 ```
 
-## Beslutningstre
+## Decision tree
 
 ```
-Er oppgaven stor nok for en epic?
-├── Ja → Opprett Epic + underliggende issues
-│   └── Hvert sub-issue: selvstendig, med avhengigheter og akseptansekriterier
-└── Nei → Opprett frittstående issue
+Is the task large enough for an epic?
+├── Yes → Create an Epic + underlying issues
+│   └── Each sub-issue: self-contained, with dependencies and acceptance criteria
+└── No → Create a standalone issue
     └── Type? → Feature / Story / Task / Bug
 ```

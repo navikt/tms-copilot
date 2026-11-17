@@ -1,26 +1,26 @@
 # Issue dependencies
 
-## MCP (primær)
+## MCP (primary)
 
-Bruk MCP for dependencies når tilgjengelig i aktivt toolset.
+Use MCP for dependencies when it is available in the active toolset.
 
-- Sjekk først om MCP-oppsettet eksponerer dependency-operasjoner
-- Foretrekk MCP over direkte API-kall
+- First check whether the MCP setup exposes dependency operations
+- Prefer MCP over direct API calls
 
 ## Fallback (gh api)
 
-Når MCP ikke er tilgjengelig, bruk GitHub REST via `gh api`.
+When MCP is not available, use the GitHub REST API through `gh api`.
 
-### Legg til dependency
+### Add a dependency
 
 ```bash
-# Issue N er avhengig av et annet issue
+# Issue N depends on another issue
 gh api \
   repos/{owner}/{repo}/issues/{issue_number}/sub_issues/dependencies \
   -X POST \
   -f dependent_issue_id=N
 
-# Alternativ payload-form
+# Alternative payload form
 gh api \
   repos/{owner}/{repo}/issues/{issue_number}/sub_issues/dependencies \
   -X POST \
@@ -33,17 +33,17 @@ gh api \
 gh api repos/{owner}/{repo}/issues/{issue_number}/sub_issues/dependencies
 ```
 
-### Fjern dependency
+### Remove a dependency
 
 ```bash
 gh api repos/{owner}/{repo}/issues/{issue_number}/sub_issues/dependencies/{dependency_id} -X DELETE
 ```
 
-### Semantikk
+### Semantics
 
-- **blocked-by**: hvilke issues blokkerer dette issuet
-- **blocking**: hvilke issues dette issuet blokkerer
+- **blocked-by**: which issues block this issue
+- **blocking**: which issues this issue blocks
 
-### Notat
+### Note
 
-Dette erstatter tekstbasert `Avhenger av #NNN` som datakilde, men behold gjerne teksten i issue body for lesbarhet.
+This replaces the text-based `Avhenger av #NNN` as the data source, but keep the text in the issue body for readability.
