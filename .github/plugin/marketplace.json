@@ -1,0 +1,23 @@
+{
+  "name": "min-side",
+  "owner": {
+    "name": "Team min-side"
+  },
+  "plugins": [
+    {
+      "name": "frontend",
+      "source": "./plugins/frontend",
+      "description": "Astro- og Aksel-konvensjoner for teamets frontender"
+    },
+    {
+      "name": "workflow",
+      "source": "./plugins/workflow",
+      "description": "Commit, pull request og issues"
+    },
+    {
+      "name": "backend",
+      "source": "./plugins/backend",
+      "description": "Plassholder for backend-skills"
+    }
+  ]
+}
