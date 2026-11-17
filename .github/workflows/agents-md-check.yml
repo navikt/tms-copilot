@@ -1,0 +1,23 @@
+name: AGENTS.md-sjekk
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  agents-md:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: navikt/tms-copilot
+          ref: main
+          path: .tms-copilot
+          sparse-checkout: scripts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node .tms-copilot/scripts/check-agents-commands.mjs .
