@@ -57,10 +57,6 @@ jobs:
     uses: navikt/tms-copilot/.github/workflows/agents-md-check.yml@main
 ```
 
-## Gammel sync
-
-`.github/workflows/tms-copilot-sync.yml` er deprecated. Den fjernes når ingen repoer kaller den lenger.
-
 ## For Nav-ansatte
 
 Kontakt teamet i [#team-minside på Slack](https://nav-it.slack.com/app_redirect?channel=team-minside).
